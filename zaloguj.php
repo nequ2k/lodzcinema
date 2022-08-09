@@ -20,6 +20,8 @@ if($connection->connect_errno==0)
     $login = $_POST['login']; 
     $haslo = $_POST['haslo']; 
 
+
+    
     $sql = "SELECT * FROM client WHERE email='$login' AND password='$haslo'";
 
    if($rezultat = @$connection->query($sql))

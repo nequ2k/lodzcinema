@@ -5,4 +5,6 @@ $dbuser = "root";
 $dbpassword = "";
 $dbname="lodzcinema"; 
 
+
+
 ?>
