@@ -1,4 +1,13 @@
-<?php session_start(); ?>
+<?php 
+
+    session_start(); 
+    if(!isset($_SESSION['loggedin']))
+    {
+        header('Location:index.php');
+        exit(); 
+    }
+
+?>
 <!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -10,7 +19,7 @@
 
 
 
-    
+
 
     <style>
         
@@ -28,6 +37,7 @@
 
 <?php 
 echo "<p> Witaj ".$_SESSION['name']."!"; 
+echo '<button><a href="logout.php"> Wyloguj się</a></button>';
 
 ?>
 

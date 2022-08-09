@@ -1,9 +1,16 @@
 <?php 
 
 session_start(); 
+
+if(!isset($_POST['login'])||!isset($_POST['haslo']))
+{
+    header('Location:index.php'); 
+    exit(); 
+}
+
 require_once "db_connect.php"; 
  
-mysqli_report(MYSQLI_REPORT_OFF);
+//mysqli_report(MYSQLI_REPORT_OFF);
 
 try 
 {
@@ -21,7 +28,7 @@ if($connection->connect_errno==0)
     $haslo = $_POST['haslo']; 
 
 
-    
+
     $sql = "SELECT * FROM client WHERE email='$login' AND password='$haslo'";
 
    if($rezultat = @$connection->query($sql))
@@ -29,8 +36,11 @@ if($connection->connect_errno==0)
     $ile_userow = $rezultat->num_rows; 
     if($ile_userow>0)
     {
+       
         $wiersz = $rezultat->fetch_assoc(); 
         $_SESSION['name'] = $wiersz['name']; 
+        $_SESSION['loggedin'] = true; 
+        $_SESSSION['id'] = $wiersz['id']; 
 
        unset($_SESSION['blad']); 
 
@@ -41,13 +51,10 @@ if($connection->connect_errno==0)
     }
     else
     {
-        $_SESSION['blad'] = '<span style="color:red"> NIeprawidlowy login lub haslo! </span>'; 
+        $_SESSION['blad'] = '<span style="color:red"> Nieprawidlowy login lub haslo! </span>'; 
         header('Location:index.php');
     }
    }
-
-
-
 
     $connection->close(); 
 }
