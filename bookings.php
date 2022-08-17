@@ -7,6 +7,8 @@
         exit(); 
     }
 
+
+
 ?>
 <!DOCTYPE html>
 <html lang="pl">
@@ -21,6 +23,8 @@
 
     #belka
     {
+        float:left; 
+        text-align:right ; 
         width:100%; 
         height:50px; 
         border:1px solid black; 
@@ -34,24 +38,12 @@
         width:24.8%; 
 
     }
-    a 
-    {
-    display: block;
-
-    }
-
-
-    
 
     </style>
-
-    </style>
-
 
 </head>
 
 <body style="background-color:blue; text-align:center; font-size:200%;">
-
 
 <div id = "belka"> 
 
@@ -97,7 +89,6 @@ echo $_SESSION['name']." ".$_SESSION['surname']." ".'<button><a href="logout.php
 
 
 </div>
-
 
 </body>
 

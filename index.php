@@ -19,17 +19,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Warsztat</title>
 
-    <style>
-        
-
-
-    </style>
-
-    <script>
-
-
-    </script>
-
 </head>
 
 <body style="background-color:blue; text-align:center; font-size:200%;">
@@ -44,8 +33,16 @@ haslo: <input type="password" name="haslo"><br><br>
 </form>
 
 <?php 
-   if(isset($_SESSION['blad'])) echo $_SESSION['blad']; 
+   if(isset($_SESSION['blad'])) 
+   {
+    echo $_SESSION['blad'];
+    unset($_SESSION['blad']);  
+   }
+
+  // echo $_SESSION['info']; 
 ?>
+<br>
+<input type="button" onclick="window.location.href='registration.php';" value="nie masz konta? zarejestruj się!"/>
 
 
 </body>
