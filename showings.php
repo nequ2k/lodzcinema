@@ -25,31 +25,13 @@ if($connection->connect_errno==0)
 {
     
    if($rezultat = @$connection->query(
-    sprintf("SELECT title, date, hour, name_hall, seats  FROM film, showing, hall WHERE showing.film_idfilm = film.idfilm  AND showing.hall_idhall = hall.idhall",
+    sprintf("SELECT idshowing, title, date, hour, name_hall, seats  FROM film, showing, hall WHERE showing.film_idfilm = film.idfilm  AND showing.hall_idhall = hall.idhall",
     mysqli_real_escape_string($connection, $login))))
    {
-    $ile_seansow = $rezultat->num_rows; 
+    //$ile_seansow = $rezultat->num_rows; 
 
    //echo $ile_seansow."<br>"; 
-    if($ile_seansow>0)
-    {
-        $wiersz = $rezultat->fetch_assoc(); 
-      //  echo $haslo."<br>"; 
-      //  echo password_hash("Wiktor;p123", PASSWORD_DEFAULT);
-      //  echo var_dump(password_verify($haslo, $wiersz['password']));
-            
-       
-            $_SESSION['title'] = $wiersz['title']; 
-            $_SESSION['date'] = $wiersz['date']; 
-            $_SESSION['hour'] = $wiersz['hour']; 
-            $_SESSION['name_hall'] = $wiersz['name_hall']; 
-            $_SESSSION['seats'] = $wiersz['seats']; 
     
-            
-            $rezultat->free_result(); 
-    
-       
-    }
 
    }
 
@@ -140,20 +122,27 @@ echo $_SESSION['name']." ".$_SESSION['surname']." ".'<button><a href="logout.php
 
 <?php
 
-echo $_SESSION['title']; 
 
-echo "<table style='width:80%; border:1px solid black;'>"; 
-            for ($i=0; $i<$ile_seansow;$i++)
+
+
+
+echo "<table style='width:80%; border:1px solid black;'>";
+$i = 1;  
+            while ($row = $rezultat->fetch_assoc())
             {
+               
                 echo "<tr>"; 
-                echo "<td>".$_SESSION['title']."</td>";
-                echo "<td>".$_SESSION['date']."</td>";
-                echo "<td>".$_SESSION['hour']."</td>";
-                echo "<td>".$_SESSION['name_hall']."</td>";
-                echo "<td>".$_SESSION['seats']."</td>";
-                echo "</tr>"; 
+                echo "<td>".$row['idshowing']."</td>";
+                echo "<td>".$row['title']."</td>";
+                echo "<td>".$row['date']."</td>";
+                echo "<td>".$row['hour']."</td>";
+                echo "<td>".$row['name_hall']."</td>";
+                echo "<td>".$row['seats']."</td>";
+                echo '<form action = "book_showing.php" method="post"><td> <input type="hidden" name="valueofID" value = "'.$row['idshowing'].'" /> <input type="submit" value = "book" name = "'.$i.'butt" </td></form>'; 
+                echo "</tr>";
+                $i+=1; 
             }
-            echo "</table>"; 
+echo "</table>"; 
 
 
 ?>
