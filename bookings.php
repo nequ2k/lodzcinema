@@ -8,6 +8,39 @@
     }
 
 
+    require_once "db_connect.php"; 
+ 
+    //mysqli_report(MYSQLI_REPORT_OFF);
+    
+    try 
+    {
+        $connection = @new mysqli($host,$dbuser,$dbpassword,$dbname);
+    }
+    catch (Exception $e)
+    {
+        echo "Error: ".$e->getCode()."."; 
+        exit();
+    }
+    
+    if($connection->connect_errno==0)
+    {
+        
+       if($rezultat = @$connection->query(
+        sprintf("SELECT title, length, date, hour from showing, film, bookings
+        WHERE film.idfilm = showing.film_idfilm and showing.idshowing = bookings.showing_idshowing
+            AND bookings.client_idclient = '".$_SESSION['id_klienta']."'",
+        mysqli_real_escape_string($connection, $login))))
+       {
+        //$ile_seansow = $rezultat->num_rows; 
+    
+       //echo $ile_seansow."<br>"; 
+        
+    
+       }
+       
+    
+    }
+    
 
 ?>
 <!DOCTYPE html>
@@ -86,9 +119,22 @@ echo $_SESSION['name']." ".$_SESSION['surname']." ".'<button><a href="logout.php
 ?>
 
 </div>
-
-
-
+<?php
+echo "<table style='width:80%; border:1px solid black;'>";
+$i = 1;  
+            while ($row = $rezultat->fetch_assoc())
+            {
+                
+                echo "<tr>"; 
+                echo "<td>".$row['title']."</td>";
+                echo "<td>".$row['length']."</td>";
+                echo "<td>".$row['date']."</td>";
+                echo "<td>".$row['hour']."</td>";
+                echo "</tr>";
+                $i+=1; 
+            }
+echo "</table>";  
+?>
 </div>
 
 </body>

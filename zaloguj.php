@@ -46,6 +46,7 @@ if($connection->connect_errno==0)
       //  echo var_dump(password_verify($haslo, $wiersz['password']));
         if(password_verify($haslo, $wiersz['password']))
         {
+            $_SESSION['id_klienta'] = $wiersz['idclient'];
             $_SESSION['surname'] = $wiersz['surname']; 
             $_SESSION['name'] = $wiersz['name']; 
             $_SESSION['email'] = $wiersz['email']; 

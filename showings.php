@@ -34,6 +34,7 @@ if($connection->connect_errno==0)
     
 
    }
+   
 
 }
 
@@ -130,7 +131,7 @@ echo "<table style='width:80%; border:1px solid black;'>";
 $i = 1;  
             while ($row = $rezultat->fetch_assoc())
             {
-               
+                
                 echo "<tr>"; 
                 echo "<td>".$row['idshowing']."</td>";
                 echo "<td>".$row['title']."</td>";
@@ -142,7 +143,7 @@ $i = 1;
                 echo "</tr>";
                 $i+=1; 
             }
-echo "</table>"; 
+echo "</table>";  
 
 
 ?>

@@ -7,6 +7,20 @@
         exit(); 
     }
 
+    require_once "db_connect.php"; 
+
+    try 
+{
+    $connection = @new mysqli($host,$dbuser,$dbpassword,$dbname);
+}
+catch (Exception $e)
+{
+    echo "Error: ".$e->getCode()."."; 
+    exit();
+}
+
+
+
 ?>
 <!DOCTYPE html>
 <html lang="pl">
@@ -15,7 +29,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Warsztat</title>   
+    <title>
+      tat</title>   
 
     <style>
 
@@ -110,7 +125,7 @@ function updateSurname()
     <tr>
       <td> Nowe nazwisko: </td>
       <form method="post">
-      <td> <input type="text" name="newName"> </td>
+      <td> <input type="text" name="newSurname"> </td>
       <td> <input type="submit" value="zapisz"> </td>
       </form> 
     </tr>
@@ -125,7 +140,7 @@ function updateEmail()
     <tr>
       <td> Nowy email: </td>
       <form method="post">
-      <td> <input type="text" name="newName"> </td>
+      <td> <input type="text" name="newEmail"> </td>
       <td> <input type="submit" value="zapisz"> </td>
       </form> 
     </tr>
@@ -149,7 +164,7 @@ function updateTel()
     <tr>
       <td> Nowy telefon: </td>
       <form method="post">
-      <td> <input type="text" name="newName"> </td>
+      <td> <input type="text" name="newTel"> </td>
       <td> <input type="submit" value="zapisz"> </td>
       </form> 
     </tr>
@@ -222,11 +237,58 @@ echo $_SESSION['name']." ".$_SESSION['surname']."   ".'<button><a href="logout.p
 
  if(array_key_exists('newName', $_POST))
  {
-   if((strlen($_POST['newName'])<8 || strlen($_POST['newName'])>24))
+   if((strlen($_POST['newName'])<3 || strlen($_POST['newName'])>24))
      {
-       echo "Haslo musi posiadać 8-24 znaki!";  
+       echo "Imie musi posiadać 3-24 znaki!";  
      }
-   echo $_POST['newName']; 
+     else 
+     {
+      echo "UPDATE"; 
+     }
+   //echo $_POST['newName']; 
+ }
+
+ if(array_key_exists('newSurname', $_POST))
+ {
+   if((strlen($_POST['newSurname'])<3 || strlen($_POST['Surname'])>24))
+     {
+       echo "Nazwisko musi posiadać 3-24 znaki!";  
+     }
+     else 
+     {
+      $sql = "INSERT INTO bookings (showing_idshowing, client_idclient) VALUES (?, ?)";
+      $stm= $connection->prepare($sql);
+      $stm->bind_param("ss", $_SESSION['id_seansu'], $_SESSION['id_klienta']);
+      $stm->execute();
+     }
+   //echo $_POST['newName']; 
+ }
+
+
+ if(array_key_exists('newEmail', $_POST))
+ {
+   if((strlen($_POST['newEmail'])<3 || strlen($_POST['newEmail'])>24))
+     {
+       echo "Email musi posiadać 3-24 znaki!";  
+     }
+     else 
+     {
+      echo "UPDATE"; 
+     }
+   //echo $_POST['newName']; 
+ }
+
+ if(array_key_exists('newTel', $_POST))
+ {
+   if((strlen($_POST['newTel'])<3 || strlen($_POST['newTel'])>24))
+     {
+       echo "telefon musi posiadać 9-15 znakow!";  
+     }
+     else 
+     {
+      echo "UPDATE"; 
+     }
+   //echo $_POST['newName']; 
  }
 
 
