@@ -243,23 +243,26 @@ echo $_SESSION['name']." ".$_SESSION['surname']."   ".'<button><a href="logout.p
      }
      else 
      {
-      echo "UPDATE"; 
+      $sql = "UPDATE client SET name = '".$_POST['newName']."' WHERE idclient = '".$_SESSION['id_klienta']."'";
+      $connection->query($sql);
+      $sql = "SELECT name from client where idclient = '".$_SESSION['id_klienta']."'";
+  //    $rezultat = $connection->query($sql);
+     // $_SESSION['id_klienta'] = $rezultat->fetch_object()->name; 
+
      }
    //echo $_POST['newName']; 
  }
 
  if(array_key_exists('newSurname', $_POST))
  {
-   if((strlen($_POST['newSurname'])<3 || strlen($_POST['Surname'])>24))
+   if((strlen($_POST['newSurname'])<3 || strlen($_POST['newSurname'])>24))
      {
        echo "Nazwisko musi posiadać 3-24 znaki!";  
      }
      else 
      {
-      $sql = "INSERT INTO bookings (showing_idshowing, client_idclient) VALUES (?, ?)";
-      $stm= $connection->prepare($sql);
-      $stm->bind_param("ss", $_SESSION['id_seansu'], $_SESSION['id_klienta']);
-      $stm->execute();
+      $sql = "UPDATE client SET surname = '".$_POST['newSurname']."' WHERE idclient = '".$_SESSION['id_klienta']."'";
+      $connection->query($sql);
      }
    //echo $_POST['newName']; 
  }
@@ -273,7 +276,12 @@ echo $_SESSION['name']." ".$_SESSION['surname']."   ".'<button><a href="logout.p
      }
      else 
      {
-      echo "UPDATE"; 
+      $sql = "UPDATE client SET email = '".$_POST['newEmail']."' WHERE idclient = '".$_SESSION['id_klienta']."'";
+      $connection->query($sql);
+      
+
+
+      
      }
    //echo $_POST['newName']; 
  }
@@ -286,7 +294,8 @@ echo $_SESSION['name']." ".$_SESSION['surname']."   ".'<button><a href="logout.p
      }
      else 
      {
-      echo "UPDATE"; 
+      $sql = "UPDATE client SET tel = '".$_POST['newTel']."' WHERE idclient = '".$_SESSION['id_klienta']."'";
+      $connection->query($sql);
      }
    //echo $_POST['newName']; 
  }
